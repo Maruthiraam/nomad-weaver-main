@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Travel Platform Design System - All colors, gradients, fonts, etc defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    /* Card system */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    /* Popover system */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    /* Travel-inspired primary colors - Ocean blue */
+    --primary: 210 100% 45%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 210 100% 55%;
+    --primary-dark: 210 100% 35%;
+
+    /* Secondary colors - Sunset orange */
+    --secondary: 25 95% 60%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-light: 25 95% 70%;
+    --secondary-dark: 25 95% 50%;
+
+    /* Adventure green accent */
+    --accent: 155 60% 45%;
+    --accent-foreground: 0 0% 98%;
+    --accent-light: 155 60% 55%;
+
+    /* Muted tones */
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 15% 50%;
+
+    /* System colors */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 210 100% 45%;
+
+    /* Travel-specific gradients */
+    --gradient-ocean: linear-gradient(135deg, hsl(210 100% 45%), hsl(195 100% 50%));
+    --gradient-sunset: linear-gradient(135deg, hsl(25 95% 60%), hsl(15 90% 55%));
+    --gradient-adventure: linear-gradient(135deg, hsl(155 60% 45%), hsl(170 50% 50%));
+    --gradient-sky: linear-gradient(180deg, hsl(210 60% 85%), hsl(220 40% 95%));
+
+    /* Travel-specific shadows */
+    --shadow-travel: 0 8px 32px hsl(210 100% 45% / 0.15);
+    --shadow-card: 0 4px 20px hsl(215 25% 15% / 0.08);
+    --shadow-hero: 0 20px 60px hsl(210 100% 45% / 0.2);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 25% 15%;
+    --foreground: 210 20% 98%;
+
+    --card: 215 25% 12%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 100% 55%;
+    --primary-foreground: 215 25% 15%;
+    --primary-light: 210 100% 65%;
+    --primary-dark: 210 100% 45%;
+
+    --secondary: 25 95% 65%;
+    --secondary-foreground: 215 25% 15%;
+    --secondary-light: 25 95% 75%;
+    --secondary-dark: 25 95% 55%;
+
+    --accent: 155 60% 55%;
+    --accent-foreground: 215 25% 15%;
+    --accent-light: 155 60% 65%;
+
+    --muted: 215 20% 20%;
+    --muted-foreground: 215 15% 65%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 215 20% 25%;
+    --input: 215 20% 25%;
+    --ring: 210 100% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
