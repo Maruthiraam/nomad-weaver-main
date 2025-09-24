@@ -553,7 +553,7 @@ const TripPlanning = () => {
                   <img src={cityImage} alt="City destination" className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
                     <div className="text-white">
-                      <div className="font-semibold">Mumbai, India</div>
+                      <div className="font-semibold">Taj Mahal, Agra</div>
                       <div className="text-sm">From ₹3,999</div>
                     </div>
                   </div>
@@ -563,7 +563,7 @@ const TripPlanning = () => {
                   <img src={mountainImage} alt="Mountain destination" className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
                     <div className="text-white">
-                      <div className="font-semibold">Shimla, India</div>
+                      <div className="font-semibold">Kerala Backwaters</div>
                       <div className="text-sm">From ₹4,999</div>
                     </div>
                   </div>
