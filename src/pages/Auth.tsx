@@ -52,7 +52,7 @@ const Auth = () => {
           <div className="w-12 h-12 bg-gradient-ocean rounded-lg flex items-center justify-center">
             <Plane className="w-7 h-7 text-white" />
           </div>
-          <span className="text-2xl font-bold text-foreground">TravelHub</span>
+          <span className="text-2xl font-bold text-foreground">Travel with Nomads</span>
         </div>
 
         <Card className="shadow-card-hover">

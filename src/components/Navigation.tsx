@@ -37,7 +37,7 @@ const Navigation = () => {
             <div className="w-10 h-10 bg-gradient-ocean rounded-lg flex items-center justify-center">
               <Plane className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-foreground">TravelHub</span>
+            <span className="text-xl font-bold text-foreground">Travel with Nomads</span>
           </div>
 
           {/* Desktop Navigation */}
