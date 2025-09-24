@@ -85,12 +85,24 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden bg-background border-t border-border">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <a href="#search" className="block px-3 py-2 text-foreground hover:bg-muted rounded-md">
+              <button 
+                onClick={() => {
+                  document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' });
+                  setIsOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 text-foreground hover:bg-muted rounded-md"
+              >
                 Destinations
-              </a>
-              <a href="#planning" className="block px-3 py-2 text-foreground hover:bg-muted rounded-md">
+              </button>
+              <button 
+                onClick={() => {
+                  document.getElementById('planning')?.scrollIntoView({ behavior: 'smooth' });
+                  setIsOpen(false);
+                }}
+                className="block w-full text-left px-3 py-2 text-foreground hover:bg-muted rounded-md"
+              >
                 Planning
-              </a>
+              </button>
               <a href="#budget" className="block px-3 py-2 text-foreground hover:bg-muted rounded-md">
                 Budget
               </a>
