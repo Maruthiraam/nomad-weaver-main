@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { PlusCircle, DollarSign, TrendingUp } from "lucide-react";
+import { PlusCircle, IndianRupee, TrendingUp } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -105,7 +105,7 @@ const BudgetTracker = () => {
           <Card className="shadow-card-hover">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <DollarSign className="w-5 h-5 text-primary" />
+                <IndianRupee className="w-5 h-5 text-primary" />
                 <span>Trip Budget Overview</span>
               </CardTitle>
               <CardDescription>
@@ -116,8 +116,8 @@ const BudgetTracker = () => {
               {/* Budget Progress */}
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Spent: ${spent.toLocaleString()}</span>
-                  <span>Budget: ${budget.toLocaleString()}</span>
+                  <span>Spent: ₹{spent.toLocaleString()}</span>
+                  <span>Budget: ₹{budget.toLocaleString()}</span>
                 </div>
                 <Progress value={spentPercentage} className="h-3" />
                 <div className="flex justify-between items-center">
@@ -125,12 +125,12 @@ const BudgetTracker = () => {
                     {remaining > 0 ? (
                       <span className="flex items-center">
                         <TrendingUp className="w-4 h-4 mr-1" />
-                        ${remaining.toLocaleString()} remaining
+                        ₹{remaining.toLocaleString()} remaining
                       </span>
                     ) : (
                       <span className="flex items-center">
                         <TrendingDown className="w-4 h-4 mr-1" />
-                        ${Math.abs(remaining).toLocaleString()} over budget
+                        ₹{Math.abs(remaining).toLocaleString()} over budget
                       </span>
                     )}
                   </span>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Plane, MapPin, Calendar, DollarSign, User, LogOut } from "lucide-react";
+import { Menu, X, Plane, MapPin, Calendar, IndianRupee, User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Navigation = () => {
@@ -57,7 +57,7 @@ const Navigation = () => {
               <span>Planning</span>
             </button>
             <a href="#budget" className="text-foreground hover:text-primary transition-colors flex items-center space-x-1">
-              <DollarSign className="w-4 h-4" />
+              <IndianRupee className="w-4 h-4" />
               <span>Budget</span>
             </a>
           </div>
