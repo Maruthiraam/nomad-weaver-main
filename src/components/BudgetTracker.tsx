@@ -53,9 +53,35 @@ const BudgetTracker = () => {
   }, []);
 
   const convertCurrency = () => {
-    if (!amount || fromCurrency === toCurrency) return amount;
-    const rate = exchangeRates[fromCurrency]?.[toCurrency] || 1;
-    return (parseFloat(amount) * rate).toFixed(2);
+    if (!amount) {
+      toast({
+        title: "Error",
+        description: "Please enter an amount to convert",
+        variant: "destructive",
+      });
+      return null;
+    }
+    
+    if (!exchangeRates[fromCurrency]?.[toCurrency]) {
+      toast({
+        title: "Error",
+        description: "Exchange rate not available for selected currencies",
+        variant: "destructive",
+      });
+      return null;
+    }
+
+    if (fromCurrency === toCurrency) return amount;
+    
+    const rate = exchangeRates[fromCurrency][toCurrency];
+    const converted = (parseFloat(amount) * rate).toFixed(2);
+    
+    toast({
+      title: "Currency Converted",
+      description: `${amount} ${fromCurrency} = ${converted} ${toCurrency}`,
+    });
+    
+    return converted;
   };
 
   const handleAddExpense = () => {
@@ -76,6 +102,11 @@ const BudgetTracker = () => {
 
   const handleSaveToBudget = () => {
     if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to save to budget",
+        variant: "destructive",
+      });
       navigate('/auth');
       return;
     }
@@ -89,14 +120,16 @@ const BudgetTracker = () => {
       return;
     }
     
-    // Add converted amount to budget
-    const convertedAmount = parseFloat(convertCurrency() || "0");
-    setBudget(prev => prev + convertedAmount);
+    const convertedAmount = convertCurrency();
+    if (!convertedAmount) return; // convertCurrency already shows error toast
+    
+    setBudget(prev => prev + parseFloat(convertedAmount));
     setAmount("");
     
     toast({
       title: "Added to Budget",
       description: `${amount} ${fromCurrency} (${convertedAmount} ${toCurrency}) added to budget`,
+      variant: "success",
     });
   };
 
