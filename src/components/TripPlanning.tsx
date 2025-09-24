@@ -668,11 +668,13 @@ const TripPlanning = () => {
             </Card>
           </a>
 
-          <Card className="text-center p-6 hover:shadow-travel transition-shadow cursor-pointer" onClick={handleReserveHotels}>
-            <Hotel className="w-12 h-12 text-secondary mx-auto mb-4" />
-            <h3 className="font-semibold text-foreground mb-2">Reserve Hotels</h3>
-            <p className="text-sm text-muted-foreground">Browse and book stays</p>
-          </Card>
+          <a href="https://www.booking.com" target="_blank" rel="noopener noreferrer">
+            <Card className="text-center p-6 hover:shadow-travel transition-shadow cursor-pointer">
+              <Hotel className="w-12 h-12 text-secondary mx-auto mb-4" />
+              <h3 className="font-semibold text-foreground mb-2">Book Hotels</h3>
+              <p className="text-sm text-muted-foreground">Search on Booking.com</p>
+            </Card>
+          </a>
 
           <a href="https://www.getyourguide.com/" target="_blank" rel="noopener noreferrer">
             <Card className="text-center p-6 hover:shadow-travel transition-shadow cursor-pointer">
