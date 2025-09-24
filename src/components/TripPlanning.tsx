@@ -685,36 +685,77 @@ const TripPlanning = () => {
           </a>
         </div>
 
-        {/* Hotels Section */}
-        <section id="hotels" className="mt-12">
+        {/* Top Destinations Section */}
+        <section id="destinations" className="mt-12">
           <div className="mb-6">
-            <h3 className="text-2xl font-semibold text-foreground">Top Hotels</h3>
-            <p className="text-muted-foreground">Browse and book popular stays</p>
+            <h3 className="text-2xl font-semibold text-foreground">Top Destinations in India</h3>
+            <p className="text-muted-foreground">Explore India's most iconic places</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hotels.slice(0, 6).map((hotel) => (
-              <Card key={hotel.id} className="overflow-hidden">
+            {[
+              {
+                id: 1,
+                name: "Taj Mahal, Agra",
+                description: "One of the seven wonders of the world, this ivory-white marble mausoleum is a testament to eternal love",
+                imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1000",
+                type: "Historical"
+              },
+              {
+                id: 2,
+                name: "Varanasi Ghats",
+                description: "The spiritual capital of India, known for its ancient temples and cultural heritage along the Ganges",
+                imageUrl: "https://images.unsplash.com/photo-1561361058-c12e04d4fcad?q=80&w=1000",
+                type: "Spiritual"
+              },
+              {
+                id: 3,
+                name: "Jaipur City Palace",
+                description: "The pink city's magnificent palace complex showcasing Rajasthani and Mughal architecture",
+                imageUrl: "https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1000",
+                type: "Heritage"
+              },
+              {
+                id: 4,
+                name: "Kerala Backwaters",
+                description: "Serene network of lagoons, lakes, and canals parallel to the Arabian Sea coast",
+                imageUrl: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=1000",
+                type: "Nature"
+              },
+              {
+                id: 5,
+                name: "Goa Beaches",
+                description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage",
+                imageUrl: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1000",
+                type: "Beach"
+              },
+              {
+                id: 6,
+                name: "Ladakh",
+                description: "High-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities",
+                imageUrl: "https://images.unsplash.com/photo-1627896157734-4d7d4137bc36?q=80&w=1000",
+                type: "Adventure"
+              }
+            ].map((destination) => (
+              <Card key={destination.id} className="overflow-hidden">
                 <div className="h-40 overflow-hidden">
-                  {hotel.image_url ? (
-                    <img
-                      src={hotel.image_url}
-                      alt={`${hotel.name} hotel image`}
-                      className="w-full h-40 object-cover"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-full h-40 bg-muted" />
-                  )}
+                  <img
+                    src={destination.imageUrl}
+                    alt={`${destination.name}`}
+                    className="w-full h-40 object-cover"
+                    loading="lazy"
+                  />
                 </div>
                 <CardContent className="p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">{hotel.name}</h4>
-                    <Badge variant="outline">{hotel.rating ? `${hotel.rating}★` : 'New'}</Badge>
+                    <h4 className="font-semibold text-foreground">{destination.name}</h4>
+                    <Badge variant="outline">{destination.type}</Badge>
                   </div>
-                  <p className="text-sm text-muted-foreground">{hotel.address || hotel.description}</p>
-                  <div className="flex items-center justify-between pt-2">
-                    <span className="font-medium text-foreground">₹{hotel.price_per_night}/night</span>
-                    <Button size="sm" onClick={() => handleBookHotel(hotel)}>Book</Button>
+                  <p className="text-sm text-muted-foreground">{destination.description}</p>
+                  <div className="flex items-center justify-end pt-2">
+                    <Button size="sm" onClick={() => {
+                      setSearchTerm(destination.name.split(',')[0]);
+                      handleSearch();
+                    }}>Explore</Button>
                   </div>
                 </CardContent>
               </Card>
