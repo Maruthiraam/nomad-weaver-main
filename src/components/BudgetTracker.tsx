@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
-import { PlusCircle, DollarSign, TrendingUp, TrendingDown, ArrowRightLeft } from "lucide-react";
+import { PlusCircle, DollarSign, TrendingUp } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
@@ -13,10 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 const BudgetTracker = () => {
   const [budget, setBudget] = useState(5000);
   const [spent, setSpent] = useState(1250);
-  const [fromCurrency, setFromCurrency] = useState("INR");
-  const [toCurrency, setToCurrency] = useState("USD");
   const [amount, setAmount] = useState("");
-  const [exchangeRates, setExchangeRates] = useState<any>({});
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -24,38 +20,30 @@ const BudgetTracker = () => {
   const remaining = budget - spent;
   const spentPercentage = (spent / budget) * 100;
 
-  // Fetch exchange rates from Supabase
-  useEffect(() => {
-    const fetchExchangeRates = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('currency_rates')
-          .select('*');
-        
-        if (error) throw error;
-        
-        // Convert array to nested object format
-        const rates: any = {};
-        data?.forEach((rate) => {
-          if (!rates[rate.from_currency]) {
-            rates[rate.from_currency] = {};
-          }
-          rates[rate.from_currency][rate.to_currency] = rate.rate;
-        });
-        
-        setExchangeRates(rates);
-      } catch (error: any) {
-        console.error('Error fetching exchange rates:', error);
-      }
-    };
-
-    fetchExchangeRates();
-  }, []);
-
-  const convertCurrency = () => {
-    if (!amount || fromCurrency === toCurrency) return amount;
-    const rate = exchangeRates[fromCurrency]?.[toCurrency] || 1;
-    return (parseFloat(amount) * rate).toFixed(2);
+  const handleUpdateBudget = () => {
+    if (!user) {
+      navigate('/auth');
+      return;
+    }
+    
+    if (!amount) {
+      toast({
+        title: "Error",
+        description: "Please enter an amount to add to your budget",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Add amount to budget
+    const addAmount = parseFloat(amount);
+    setBudget(prev => prev + addAmount);
+    setAmount("");
+    
+    toast({
+      title: "Budget Updated",
+      description: `Added ₹${addAmount.toLocaleString()} to your budget`,
+    });
   };
 
   const handleAddExpense = () => {
@@ -182,22 +170,21 @@ const BudgetTracker = () => {
             </CardContent>
           </Card>
 
-          {/* Currency Converter */}
+          {/* Budget Updater */}
           <Card className="shadow-card-hover">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <ArrowRightLeft className="w-5 h-5 text-secondary" />
-                <span>Currency Converter</span>
+                <TrendingUp className="w-5 h-5 text-secondary" />
+                <span>Budget Updater</span>
               </CardTitle>
               <CardDescription>
-                Convert currencies for international travel planning
+                Update your travel budget and track expenses
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Currency Selection */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">From</label>
+              {/* Budget Input */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Add to Budget</label>
                   <Select value={fromCurrency} onValueChange={setFromCurrency}>
                     <SelectTrigger>
                       <SelectValue />
