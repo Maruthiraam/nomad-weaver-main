@@ -13,14 +13,14 @@ import cityImage from "@/assets/city-destination.jpg";
 import mountainImage from "@/assets/mountain-adventure.jpg";
 import { useBooking } from "@/hooks/useBooking";
 
-// Define destination image paths
+// Define destination image paths - using placeholder until actual images are added
 const destinationImages = {
-  tajMahal: "/images/destinations/taj-mahal.jpg",
-  varanasi: "/images/destinations/varanasi-ghats.jpg",
-  jaipur: "/images/destinations/jaipur-palace.jpg",
-  kerala: "/images/destinations/kerala-backwaters.jpg",
-  goa: "/images/destinations/goa-beaches.jpg",
-  ladakh: "/images/destinations/ladakh-monastery.jpg"
+  tajMahal: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+  varanasi: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
+  jaipur: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80",
+  kerala: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80",
+  goa: "https://images.unsplash.com/photo-1587922546307-776227941871?auto=format&fit=crop&w=800&q=80",
+  ladakh: "https://images.unsplash.com/photo-1606547151230-d98b416d9c6d?auto=format&fit=crop&w=800&q=80"
 };
 
 const TripPlanning = () => {
@@ -687,138 +687,42 @@ const TripPlanning = () => {
                 name: "Taj Mahal, Agra",
                 description: "One of the seven wonders of the world, this ivory-white marble mausoleum is a testament to eternal love",
                 image: destinationImages.tajMahal,
-                type: "Historical",
-                details: {
-                  bestTime: "October to March",
-                  duration: "2-3 days recommended",
-                  highlights: [
-                    "Sunrise view of the Taj Mahal",
-                    "Agra Fort UNESCO World Heritage Site",
-                    "Fatehpur Sikri ancient city",
-                    "Local Mughlai cuisine"
-                  ],
-                  tips: [
-                    "Visit early morning to avoid crowds",
-                    "Hire a certified guide for historical insights",
-                    "Taj Mahal is closed on Fridays",
-                    "Photography is not allowed inside the main mausoleum"
-                  ]
-                }
+                type: "Historical"
               },
               {
                 id: 2,
                 name: "Varanasi Ghats",
                 description: "The spiritual capital of India, known for its ancient temples and cultural heritage along the Ganges",
                 image: destinationImages.varanasi,
-                type: "Spiritual",
-                details: {
-                  bestTime: "November to March",
-                  duration: "3-4 days recommended",
-                  highlights: [
-                    "Evening Ganga Aarti ceremony",
-                    "Sunrise boat ride on the Ganges",
-                    "Ancient temples exploration",
-                    "Traditional music performances"
-                  ],
-                  tips: [
-                    "Respect local customs and traditions",
-                    "Early morning or evening visits recommended",
-                    "Book boat rides through verified sources",
-                    "Try local street food with caution"
-                  ]
-                }
+                type: "Spiritual"
               },
               {
                 id: 3,
                 name: "Jaipur City Palace",
                 description: "The pink city's magnificent palace complex showcasing Rajasthani and Mughal architecture",
                 image: destinationImages.jaipur,
-                type: "Heritage",
-                details: {
-                  bestTime: "October to March",
-                  duration: "3-4 days recommended",
-                  highlights: [
-                    "City Palace royal residence",
-                    "Hawa Mahal (Palace of Winds)",
-                    "Amber Fort light and sound show",
-                    "Traditional Rajasthani crafts"
-                  ],
-                  tips: [
-                    "Book palace guide in advance",
-                    "Visit early morning for best photos",
-                    "Wear comfortable walking shoes",
-                    "Bargain at local markets"
-                  ]
-                }
+                type: "Heritage"
               },
               {
                 id: 4,
                 name: "Kerala Backwaters",
                 description: "Serene network of lagoons, lakes, and canals parallel to the Arabian Sea coast",
                 image: destinationImages.kerala,
-                type: "Nature",
-                details: {
-                  bestTime: "September to March",
-                  duration: "2-3 days recommended",
-                  highlights: [
-                    "Houseboat overnight stay",
-                    "Local village experiences",
-                    "Traditional Ayurvedic treatments",
-                    "Kerala cuisine cooking demos"
-                  ],
-                  tips: [
-                    "Book houseboats in advance",
-                    "Check weather forecasts",
-                    "Try local seafood specialties",
-                    "Respect local ecosystem"
-                  ]
-                }
+                type: "Nature"
               },
               {
                 id: 5,
                 name: "Goa Beaches",
                 description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage",
                 image: destinationImages.goa,
-                type: "Beach",
-                details: {
-                  bestTime: "November to February",
-                  duration: "4-5 days recommended",
-                  highlights: [
-                    "Historic Portuguese churches",
-                    "Water sports activities",
-                    "Beach shack dining",
-                    "Sunset cruise experiences"
-                  ],
-                  tips: [
-                    "Book beach resorts in advance",
-                    "Rent bikes for local transport",
-                    "Visit during non-peak seasons for better rates",
-                    "Try local Goan cuisine"
-                  ]
-                }
+                type: "Beach"
               },
               {
                 id: 6,
                 name: "Ladakh",
                 description: "High-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities",
                 image: destinationImages.ladakh,
-                type: "Adventure",
-                details: {
-                  bestTime: "June to September",
-                  duration: "7-10 days recommended",
-                  highlights: [
-                    "Pangong Lake views",
-                    "Thiksey Monastery visit",
-                    "Nubra Valley excursion",
-                    "Local Ladakhi culture"
-                  ],
-                  tips: [
-                    "Acclimatize properly to high altitude",
-                    "Book permits in advance",
-                    "Carry warm clothes year-round",
-                    "Respect monastery etiquette"
-                  ]
-                }
+                type: "Adventure"
               }
             ].map((destination) => (
               <Card key={destination.id} className="overflow-hidden">
@@ -837,74 +741,10 @@ const TripPlanning = () => {
                   </div>
                   <p className="text-sm text-muted-foreground">{destination.description}</p>
                   <div className="flex items-center justify-end pt-2">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button size="sm">Explore</Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px]">
-                        <DialogHeader>
-                          <DialogTitle className="flex items-center gap-2">
-                            {destination.name}
-                            <Badge variant="outline">{destination.type}</Badge>
-                          </DialogTitle>
-                          <DialogDescription>
-                            {destination.description}
-                          </DialogDescription>
-                        </DialogHeader>
-                        <div className="mt-4 space-y-4">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-primary" />
-                              <span className="text-sm">Best Time:</span>
-                              <span className="text-sm text-muted-foreground">{destination.details.bestTime}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-primary" />
-                              <span className="text-sm">Duration:</span>
-                              <span className="text-sm text-muted-foreground">{destination.details.duration}</span>
-                            </div>
-                          </div>
-
-                          <div>
-                            <h4 className="font-medium flex items-center gap-2 mb-2">
-                              <Sun className="w-4 h-4 text-primary" />
-                              Highlights
-                            </h4>
-                            <ul className="list-disc list-inside space-y-1">
-                              {destination.details.highlights.map((highlight, idx) => (
-                                <li key={idx} className="text-sm text-muted-foreground">
-                                  {highlight}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          <div>
-                            <h4 className="font-medium flex items-center gap-2 mb-2">
-                              <Navigation2 className="w-4 h-4 text-primary" />
-                              Travel Tips
-                            </h4>
-                            <ul className="list-disc list-inside space-y-1">
-                              {destination.details.tips.map((tip, idx) => (
-                                <li key={idx} className="text-sm text-muted-foreground">
-                                  {tip}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="mt-6 flex justify-end gap-2">
-                          <Button
-                            onClick={() => {
-                              setSearchTerm(destination.name.split(',')[0]);
-                              handleSearch();
-                            }}
-                          >
-                            Plan Your Trip
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                    <Button size="sm" onClick={() => {
+                      setSearchTerm(destination.name.split(',')[0]);
+                      handleSearch();
+                    }}>Explore</Button>
                   </div>
                 </CardContent>
               </Card>
