@@ -3,23 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Plane, MapPin, Calendar, DollarSign, User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useToast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const handleAuthAction = async () => {
+  const handleAuthAction = () => {
     if (user) {
-      await signOut();
-      toast({
-        title: "Signed out successfully",
-        description: "You have been logged out of your account",
-      });
+      signOut();
     } else {
       navigate('/auth');
     }
