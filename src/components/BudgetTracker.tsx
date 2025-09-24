@@ -3,22 +3,42 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { PlusCircle, IndianRupee, TrendingUp } from "lucide-react";
+import { PlusCircle, IndianRupee, TrendingUp, TrendingDown } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const BudgetTracker = () => {
   const [budget, setBudget] = useState(5000);
   const [spent, setSpent] = useState(1250);
   const [amount, setAmount] = useState("");
+  const [fromCurrency, setFromCurrency] = useState("INR");
+  const [toCurrency, setToCurrency] = useState("INR");
   const { user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   
   const remaining = budget - spent;
   const spentPercentage = (spent / budget) * 100;
+
+  // Sample exchange rates (in production, these would come from an API)
+  const exchangeRates = {
+    INR: { INR: 1, USD: 0.012, EUR: 0.011, GBP: 0.0097 },
+    USD: { INR: 83.12, USD: 1, EUR: 0.92, GBP: 0.81 },
+    EUR: { INR: 90.35, USD: 1.09, EUR: 1, GBP: 0.88 },
+    GBP: { INR: 102.67, USD: 1.24, EUR: 1.14, GBP: 1 }
+  };
+
+  const convertCurrency = () => {
+    if (!amount) return "";
+    const rate = exchangeRates[fromCurrency][toCurrency];
+    const converted = parseFloat(amount) * rate;
+    return converted.toLocaleString('en-IN', {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    });
+  };
 
   const handleUpdateBudget = () => {
     if (!user) {
@@ -183,39 +203,9 @@ const BudgetTracker = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Budget Input */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Add to Budget</label>
-                  <Select value={fromCurrency} onValueChange={setFromCurrency}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="INR">INR - Indian Rupee</SelectItem>
-                      <SelectItem value="USD">USD - US Dollar</SelectItem>
-                      <SelectItem value="EUR">EUR - Euro</SelectItem>
-                      <SelectItem value="GBP">GBP - British Pound</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">To</label>
-                  <Select value={toCurrency} onValueChange={setToCurrency}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="INR">INR - Indian Rupee</SelectItem>
-                      <SelectItem value="USD">USD - US Dollar</SelectItem>
-                      <SelectItem value="EUR">EUR - Euro</SelectItem>
-                      <SelectItem value="GBP">GBP - British Pound</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
               {/* Amount Input */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Amount</label>
+                <label className="text-sm font-medium text-foreground">Add to Budget (₹)</label>
                 <Input
                   type="number"
                   placeholder="Enter amount"
@@ -225,29 +215,33 @@ const BudgetTracker = () => {
                 />
               </div>
 
-              {/* Conversion Result */}
+              {/* Preview */}
               {amount && (
                 <div className="bg-gradient-sunset/10 p-4 rounded-lg border border-secondary/20">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-foreground">
-                      {convertCurrency()} {toCurrency}
+                      ₹{parseFloat(amount).toLocaleString()}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {amount} {fromCurrency} equals
+                      Will be added to your current budget
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Exchange Rate Info */}
+              {/* Budget Tips */}
               <div className="bg-muted/30 p-3 rounded-lg">
-                <div className="text-sm text-muted-foreground text-center">
-                  Live exchange rates updated every minute
+                <div className="text-sm text-muted-foreground">
+                  <ul className="space-y-1">
+                    <li>• Keep track of daily expenses</li>
+                    <li>• Set aside emergency funds</li>
+                    <li>• Plan for activities and souvenirs</li>
+                  </ul>
                 </div>
               </div>
 
-              <Button variant="sunset" className="w-full" onClick={handleSaveToBudget}>
-                Save to Budget
+              <Button variant="sunset" className="w-full" onClick={handleUpdateBudget}>
+                Update Budget
               </Button>
             </CardContent>
           </Card>
