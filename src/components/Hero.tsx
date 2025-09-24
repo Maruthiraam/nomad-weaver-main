@@ -60,7 +60,7 @@ const Hero = () => {
           </Button>
         </div>
 
-        {/* Quick Stats */}
+        {/* Quick Stats 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
           <div className="text-center">
             <div className="text-2xl md:text-3xl font-bold text-white">500+</div>
@@ -78,15 +78,15 @@ const Hero = () => {
             <div className="text-2xl md:text-3xl font-bold text-white">1M+</div>
             <div className="text-white/80 text-sm">Bookings</div>
           </div>
-        </div>
+        </div>*/}
       </div>
 
-      {/* Floating elements */}
+      {/* Floating elements 
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-6 border-2 border-white rounded-full flex items-center justify-center">
           <div className="w-2 h-2 bg-white rounded-full"></div>
         </div>
-      </div>
+      </div>*/}
     </section>
   );
 };
