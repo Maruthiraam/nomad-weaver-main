@@ -34,10 +34,10 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <img src="/images/nomads-logo.svg" alt="The Nomads Logo" className="h-8" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-[#80ecff]">THE NOMADS</span>
+            <div className="w-10 h-10 bg-gradient-ocean rounded-lg flex items-center justify-center">
+              <Plane className="w-6 h-6 text-white" />
             </div>
+            <span className="text-xl font-bold text-foreground">Travel with Nomads</span>
           </div>
 
           {/* Desktop Navigation */}
