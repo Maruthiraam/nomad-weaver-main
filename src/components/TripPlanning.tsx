@@ -223,6 +223,68 @@ const TripPlanning = () => {
     { name: "Kavaratti", state: "Lakshadweep", type: "Capital", description: "Coral Paradise" },
     { name: "Puducherry", state: "Puducherry", type: "Capital", description: "French Riviera of the East" }
   ];
+  const [selectedCity, setSelectedCity] = useState<any>(null);
+
+  const generateItinerary = (city: any) => {
+    const cityData = indianCities.find(c => c.name === city.name) || city;
+    const type = cityData.type;
+    
+    // Base activities based on city type
+    const activities = {
+      Historical: [
+        { time: "09:00", title: "Visit Historical Monuments", location: `${city.name} Fort`, type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "13:00", title: "Local Cuisine", location: "Heritage Restaurant", type: "dining", icon: Utensils, duration: "1 hour" },
+        { time: "15:00", title: "Museum Visit", location: `${city.name} Museum`, type: "activity", icon: Camera, duration: "2 hours" }
+      ],
+      Religious: [
+        { time: "07:00", title: "Morning Temple Visit", location: "Main Temple", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "10:00", title: "Sacred Walks", location: "Temple Complex", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "13:00", title: "Prasad Lunch", location: "Temple Kitchen", type: "dining", icon: Utensils, duration: "1 hour" }
+      ],
+      "Hill Station": [
+        { time: "08:00", title: "Sunrise Point", location: "Viewpoint", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "11:00", title: "Nature Walk", location: "Valley Trail", type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "15:00", title: "Local Tea Experience", location: "Tea Garden", type: "activity", icon: Utensils, duration: "2 hours" }
+      ],
+      Beach: [
+        { time: "08:00", title: "Beach Sunrise", location: "Main Beach", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "11:00", title: "Water Sports", location: "Beach Activities", type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "15:00", title: "Seafood Dining", location: "Beach Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
+      ],
+      Capital: [
+        { time: "09:00", title: "City Tour", location: "City Center", type: "activity", icon: Bus, duration: "3 hours" },
+        { time: "13:00", title: "Local Markets", location: "Shopping District", type: "activity", icon: User, duration: "2 hours" },
+        { time: "16:00", title: "Cultural Show", location: "Cultural Center", type: "activity", icon: Camera, duration: "2 hours" }
+      ]
+    };
+
+    // Default activities for other city types
+    const defaultActivities = [
+      { time: "09:00", title: "City Exploration", location: "City Center", type: "activity", icon: Camera, duration: "3 hours" },
+      { time: "13:00", title: "Local Food", location: "Popular Restaurant", type: "dining", icon: Utensils, duration: "1 hour" },
+      { time: "15:00", title: "Cultural Visit", location: "Local Attraction", type: "activity", icon: Camera, duration: "2 hours" }
+    ];
+
+    return {
+      1: [
+        { time: "08:00", title: "Hotel Check-in", location: `${city.name} Hotel`, type: "hotel", icon: Hotel, duration: "1 hour" },
+        ...(activities[type] || defaultActivities),
+        { time: "19:00", title: "Dinner", location: "Local Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
+      ],
+      2: [
+        { time: "09:00", title: "Local Sightseeing", location: city.name, type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "13:00", title: "Local Cuisine", location: "Restaurant", type: "dining", icon: Utensils, duration: "1 hour" },
+        { time: "15:00", title: "Shopping", location: "Local Market", type: "activity", icon: User, duration: "3 hours" },
+        { time: "19:00", title: "Cultural Evening", location: "City Center", type: "activity", icon: Camera, duration: "2 hours" }
+      ],
+      3: [
+        { time: "08:00", title: "Day Trip", location: `Near ${city.name}`, type: "activity", icon: Bus, duration: "6 hours" },
+        { time: "15:00", title: "Local Experience", location: city.name, type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "19:00", title: "Farewell Dinner", location: "Premium Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
+      ]
+    };
+  };
+
   const handleSearch = async () => {
     if (!user) {
       toast({
@@ -238,6 +300,16 @@ const TripPlanning = () => {
 
     const results = await searchDestinations(searchTerm);
     setSearchResults(results);
+
+    // Find the city in our database
+    const city = indianCities.find(c => 
+      c.name.toLowerCase() === searchTerm.toLowerCase() ||
+      c.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (city) {
+      setSelectedCity(city);
+    }
   };
 
   const handleExploreMore = () => {
@@ -320,40 +392,68 @@ const TripPlanning = () => {
       currency: 'INR',
     });
   };
-  const itineraryByDay = {
-    1: [
-      { time: "09:00", title: "Airport Departure", location: "IGI Airport, Delhi", type: "flight", icon: Plane, duration: "3 hours" },
-      { time: "14:00", title: "Hotel Check-in", location: "Grand Plaza Hotel", type: "hotel", icon: Hotel, duration: "30 minutes" },
-      { time: "16:00", title: "India Gate Visit", location: "India Gate, Delhi", type: "activity", icon: Camera, duration: "2 hours" },
-      { time: "19:00", title: "Welcome Dinner", location: "Connaught Place", type: "dining", icon: Utensils, duration: "2 hours" }
-    ],
-    2: [
-      { time: "08:00", title: "Breakfast", location: "Hotel Restaurant", type: "dining", icon: Utensils, duration: "1 hour" },
-      { time: "10:00", title: "Red Fort Tour", location: "Red Fort, Delhi", type: "activity", icon: Camera, duration: "3 hours" },
-      { time: "15:00", title: "Qutub Minar", location: "Qutub Complex", type: "activity", icon: Camera, duration: "2 hours" },
-      { time: "19:00", title: "Local Market", location: "Chandni Chowk", type: "activity", icon: User, duration: "2 hours" }
-    ],
-    3: [
-      { time: "07:00", title: "Train Journey", location: "New Delhi Station", type: "activity", icon: Train, duration: "3 hours" },
-      { time: "11:00", title: "Taj Mahal Visit", location: "Agra, UP", type: "activity", icon: Camera, duration: "4 hours" },
-      { time: "16:00", title: "Agra Fort", location: "Agra Fort", type: "activity", icon: Camera, duration: "2 hours" },
-      { time: "19:00", title: "Mughlai Dinner", location: "Agra Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
-    ],
-    4: [
-      { time: "09:00", title: "Return Journey", location: "Agra to Delhi", type: "activity", icon: Bus, duration: "4 hours" },
-      { time: "15:00", title: "Lotus Temple", location: "Lotus Temple, Delhi", type: "activity", icon: Camera, duration: "2 hours" },
-      { time: "18:00", title: "Shopping", location: "Khan Market", type: "activity", icon: User, duration: "2 hours" },
-      { time: "20:00", title: "Farewell Dinner", location: "Delhi Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
-    ],
-    5: [
-      { time: "08:00", title: "Hotel Checkout", location: "Grand Plaza Hotel", type: "hotel", icon: Hotel, duration: "30 minutes" },
-      { time: "10:00", title: "Last-minute Shopping", location: "Dilli Haat", type: "activity", icon: User, duration: "2 hours" },
-      { time: "14:00", title: "Airport Transfer", location: "IGI Airport", type: "activity", icon: Bus, duration: "1 hour" },
-      { time: "16:00", title: "Flight Departure", location: "IGI Airport, Delhi", type: "flight", icon: Plane, duration: "3 hours" }
-    ]
+  const getItinerary = (city: any) => {
+    if (!city) return [];
+
+    const activityMap = {
+      Historical: [
+        { time: "09:00", title: `Visit ${city.name} Historical Sites`, location: `${city.name} Heritage Area`, type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "13:00", title: "Heritage Lunch", location: "Local Restaurant", type: "dining", icon: Utensils, duration: "1.5 hours" },
+        { time: "15:00", title: "Museum Tour", location: `${city.name} Museum`, type: "activity", icon: Camera, duration: "2.5 hours" },
+      ],
+      Religious: [
+        { time: "07:00", title: "Morning Temple Visit", location: "Main Temple", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "10:00", title: "Sacred Walk Tour", location: "Temple Complex", type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "14:00", title: "Traditional Lunch", location: "Local Eatery", type: "dining", icon: Utensils, duration: "1.5 hours" },
+      ],
+      "Hill Station": [
+        { time: "06:00", title: "Sunrise View", location: "Viewpoint", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "09:00", title: "Nature Trek", location: "Mountain Trail", type: "activity", icon: Camera, duration: "4 hours" },
+        { time: "14:00", title: "Local Experience", location: "Village Visit", type: "activity", icon: Camera, duration: "3 hours" },
+      ],
+      Capital: [
+        { time: "09:00", title: "City Tour", location: "City Center", type: "activity", icon: Bus, duration: "3 hours" },
+        { time: "13:00", title: "Local Food", location: "Famous Restaurant", type: "dining", icon: Utensils, duration: "1.5 hours" },
+        { time: "15:00", title: "Cultural Visit", location: "Heritage Site", type: "activity", icon: Camera, duration: "2.5 hours" },
+      ],
+      Beach: [
+        { time: "07:00", title: "Beach Sunrise", location: "Main Beach", type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "10:00", title: "Water Activities", location: "Beach Area", type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "14:00", title: "Seafood Lunch", location: "Beach Restaurant", type: "dining", icon: Utensils, duration: "2 hours" },
+      ]
+    };
+
+    const defaultActivities = [
+      { time: "09:00", title: `Explore ${city.name}`, location: "City Center", type: "activity", icon: Camera, duration: "3 hours" },
+      { time: "13:00", title: "Local Cuisine", location: "Popular Restaurant", type: "dining", icon: Utensils, duration: "1.5 hours" },
+      { time: "15:00", title: "Cultural Tour", location: `${city.name} Landmarks`, type: "activity", icon: Camera, duration: "2.5 hours" },
+    ];
+
+    const baseItinerary = {
+      1: [
+        { time: "08:00", title: "Arrival & Check-in", location: `${city.name} Hotel`, type: "hotel", icon: Hotel, duration: "1 hour" },
+        ...(activityMap[city.type] || defaultActivities),
+        { time: "19:00", title: "Welcome Dinner", location: "Local Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
+      ],
+      2: [
+        { time: "09:00", title: `${city.name} Sightseeing`, location: city.name, type: "activity", icon: Camera, duration: "3 hours" },
+        { time: "13:00", title: "Local Food Experience", location: "Food Street", type: "dining", icon: Utensils, duration: "1.5 hours" },
+        { time: "15:00", title: "Shopping Tour", location: "Local Market", type: "activity", icon: User, duration: "3 hours" },
+        { time: "19:00", title: "Cultural Show", location: `${city.name} Theater`, type: "activity", icon: Camera, duration: "2 hours" }
+      ],
+      3: [
+        { time: "08:00", title: "Day Excursion", location: `Near ${city.name}`, type: "activity", icon: Bus, duration: "6 hours" },
+        { time: "15:00", title: "Local Workshop", location: city.name, type: "activity", icon: Camera, duration: "2 hours" },
+        { time: "18:00", title: "Farewell Dinner", location: "Premium Restaurant", type: "dining", icon: Utensils, duration: "2 hours" }
+      ]
+    };
+
+    return baseItinerary;
   };
 
-  const currentItinerary = itineraryByDay[selectedDays as keyof typeof itineraryByDay] || itineraryByDay[1];
+  const currentItinerary = selectedCity ? 
+    (getItinerary(selectedCity)[selectedDays as keyof ReturnType<typeof getItinerary>] || getItinerary(selectedCity)[1]) : 
+    [];
 
   const getTypeColor = (type) => {
     switch (type) {
@@ -411,15 +511,21 @@ const TripPlanning = () => {
                       key={city.name}
                       onClick={() => {
                         setSearchTerm(city.name);
+                        setSelectedCity(city);
                         handleSearch();
                       }}
                       className="p-3 bg-muted/50 rounded-lg cursor-pointer hover:bg-muted transition-colors"
                     >
                       <div className="font-medium">{city.name}</div>
                       <div className="text-xs text-muted-foreground">{city.state}</div>
-                      <Badge variant="secondary" className="mt-1 text-xs">
-                        {city.type}
-                      </Badge>
+                      <div className="flex gap-2 mt-1">
+                        <Badge variant="secondary" className="text-xs">
+                          {city.type}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {city.description}
+                        </Badge>
+                      </div>
                     </div>
                   ))}
                 </div>
