@@ -644,11 +644,11 @@ const TripPlanning = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
-          <a href="https://www.goindigo.in/" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.skyscanner.co.in" target="_blank" rel="noopener noreferrer">
             <Card className="text-center p-6 hover:shadow-travel transition-shadow cursor-pointer">
               <Plane className="w-12 h-12 text-primary mx-auto mb-4" />
               <h3 className="font-semibold text-foreground mb-2">Book Flights</h3>
-              <p className="text-sm text-muted-foreground">Fly with IndiGo</p>
+              <p className="text-sm text-muted-foreground">Search on Skyscanner</p>
             </Card>
           </a>
 
