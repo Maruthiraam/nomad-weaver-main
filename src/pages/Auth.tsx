@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { Plane, Mail, Lock, User } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from "@/components/ui/sonner";
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,6 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   useEffect(() => {
     if (user) {
@@ -31,15 +30,12 @@ const Auth = () => {
     const { error } = await signIn(email, password);
     
     if (error) {
-      toast({
-        title: "Error signing in",
-        description: error.message,
-        variant: "destructive",
+      toast.error("Error signing in", {
+        description: error.message
       });
     } else {
-      toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in",
+      toast.success("Welcome back!", {
+        description: "You have successfully signed in"
       });
       navigate('/');
     }
@@ -54,15 +50,12 @@ const Auth = () => {
     const { error } = await signUp(email, password, fullName);
     
     if (error) {
-      toast({
-        title: "Error signing up",
-        description: error.message,
-        variant: "destructive",
+      toast.error("Error signing up", {
+        description: error.message
       });
     } else {
-      toast({
-        title: "Account created!",
-        description: "You have successfully created your account",
+      toast.success("Account created!", {
+        description: "You have successfully created your account"
       });
       navigate('/');
     }

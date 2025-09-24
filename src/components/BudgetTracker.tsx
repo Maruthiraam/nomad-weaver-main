@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import { PlusCircle, DollarSign, TrendingUp, TrendingDown, ArrowRightLeft } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 const BudgetTracker = () => {
@@ -54,20 +54,12 @@ const BudgetTracker = () => {
 
   const convertCurrency = () => {
     if (!amount) {
-      toast({
-        title: "Error",
-        description: "Please enter an amount to convert",
-        variant: "destructive",
-      });
+      toast.error("Please enter an amount to convert");
       return null;
     }
     
     if (!exchangeRates[fromCurrency]?.[toCurrency]) {
-      toast({
-        title: "Error",
-        description: "Exchange rate not available for selected currencies",
-        variant: "destructive",
-      });
+      toast.error("Exchange rate not available for selected currencies");
       return null;
     }
 
@@ -76,9 +68,8 @@ const BudgetTracker = () => {
     const rate = exchangeRates[fromCurrency][toCurrency];
     const converted = (parseFloat(amount) * rate).toFixed(2);
     
-    toast({
-      title: "Currency Converted",
-      description: `${amount} ${fromCurrency} = ${converted} ${toCurrency}`,
+    toast.success(`${amount} ${fromCurrency} = ${converted} ${toCurrency}`, {
+      description: "Currency conversion successful"
     });
     
     return converted;
@@ -86,6 +77,9 @@ const BudgetTracker = () => {
 
   const handleAddExpense = () => {
     if (!user) {
+      toast.error("Please sign in to add expenses", {
+        description: "Authentication required"
+      });
       navigate('/auth');
       return;
     }
@@ -94,29 +88,22 @@ const BudgetTracker = () => {
     const newExpense = Math.floor(Math.random() * 500) + 100;
     setSpent(prev => prev + newExpense);
     
-    toast({
-      title: "Expense Added",
-      description: `Added ₹${newExpense} to your expenses`,
+    toast.success("Expense Added", {
+      description: `Added ₹${newExpense} to your expenses`
     });
   };
 
   const handleSaveToBudget = () => {
     if (!user) {
-      toast({
-        title: "Authentication Required",
-        description: "Please sign in to save to budget",
-        variant: "destructive",
+      toast.error("Please sign in to save to budget", {
+        description: "Authentication required"
       });
       navigate('/auth');
       return;
     }
     
     if (!amount) {
-      toast({
-        title: "Error",
-        description: "Please enter an amount to convert",
-        variant: "destructive",
-      });
+      toast.error("Please enter an amount to convert");
       return;
     }
     
@@ -126,10 +113,8 @@ const BudgetTracker = () => {
     setBudget(prev => prev + parseFloat(convertedAmount));
     setAmount("");
     
-    toast({
-      title: "Added to Budget",
-      description: `${amount} ${fromCurrency} (${convertedAmount} ${toCurrency}) added to budget`,
-      variant: "success",
+    toast.success("Added to Budget", {
+      description: `${amount} ${fromCurrency} (${convertedAmount} ${toCurrency}) added to budget`
     });
   };
 
