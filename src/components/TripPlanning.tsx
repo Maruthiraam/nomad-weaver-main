@@ -13,14 +13,14 @@ import cityImage from "@/assets/city-destination.jpg";
 import mountainImage from "@/assets/mountain-adventure.jpg";
 import { useBooking } from "@/hooks/useBooking";
 
-// Define destination image paths - using placeholder until actual images are added
+// Define destination image paths
 const destinationImages = {
-  tajMahal: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
-  varanasi: "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
-  jaipur: "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80",
-  kerala: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=800&q=80",
-  goa: "https://images.unsplash.com/photo-1587922546307-776227941871?auto=format&fit=crop&w=800&q=80",
-  ladakh: "https://images.unsplash.com/photo-1606547151230-d98b416d9c6d?auto=format&fit=crop&w=800&q=80"
+  tajMahal: "/images/destinations/taj-mahal.jpg",
+  varanasi: "/images/destinations/varanasi-ghats.jpg",
+  jaipur: "/images/destinations/jaipur-palace.jpg",
+  kerala: "/images/destinations/kerala-backwaters.jpg",
+  goa: "/images/destinations/goa-beaches.jpg",
+  ladakh: "/images/destinations/ladakh-monastery.jpg"
 };
 
 const TripPlanning = () => {
