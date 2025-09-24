@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, Clock, Plus, Plane, Hotel, Camera, Utensils, Train, Bus, User, MapPinIcon } from "lucide-react";
+import { Calendar, MapPin, Clock, Plus, Plane, Hotel, Camera, Utensils, Train, Bus, User } from "lucide-react";
 import { useHotels } from "@/hooks/useHotels";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -11,33 +11,10 @@ import { useToast } from "@/hooks/use-toast";
 import cityImage from "@/assets/city-destination.jpg";
 import mountainImage from "@/assets/mountain-adventure.jpg";
 import { useBooking } from "@/hooks/useBooking";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 const TripPlanning = () => {
   const [selectedDays, setSelectedDays] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [showAddActivityDialog, setShowAddActivityDialog] = useState(false);
-  const [newActivity, setNewActivity] = useState({
-    title: "",
-    time: "",
-    duration: "",
-    location: "",
-    type: "custom"
-  });
   const { hotels, cities, loading, searchDestinations } = useHotels();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -484,7 +461,6 @@ const TripPlanning = () => {
       case "hotel": return "bg-secondary";
       case "activity": return "bg-accent";
       case "dining": return "bg-secondary";
-      case "custom": return "bg-green-500";
       default: return "bg-gray-500";
     }
   };
@@ -658,90 +634,10 @@ const TripPlanning = () => {
                 })}
               </div>
 
-              <Dialog open={showAddActivityDialog} onOpenChange={setShowAddActivityDialog}>
-                <DialogTrigger asChild>
-                  <Button variant="travel" className="w-full">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Activity
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Add New Activity</DialogTitle>
-                    <DialogDescription>
-                      Add a custom activity to your itinerary.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                      <Input
-                        placeholder="Activity Title"
-                        value={newActivity.title}
-                        onChange={(e) => setNewActivity({ ...newActivity, title: e.target.value })}
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Input
-                        placeholder="Time (e.g., 09:00)"
-                        value={newActivity.time}
-                        onChange={(e) => setNewActivity({ ...newActivity, time: e.target.value })}
-                      />
-                      <Input
-                        placeholder="Duration (e.g., 2 hours)"
-                        value={newActivity.duration}
-                        onChange={(e) => setNewActivity({ ...newActivity, duration: e.target.value })}
-                      />
-                    </div>
-                    <div className="grid gap-2">
-                      <Input
-                        placeholder="Location"
-                        value={newActivity.location}
-                        onChange={(e) => setNewActivity({ ...newActivity, location: e.target.value })}
-                      />
-                    </div>
-                    <Button onClick={() => {
-                      if (!selectedCity) {
-                        toast({
-                          title: "Error",
-                          description: "Please select a city first.",
-                          variant: "destructive",
-                        });
-                        return;
-                      }
-                      
-                      const activity = {
-                        ...newActivity,
-                        icon: MapPinIcon,
-                        type: "custom"
-                      };
-                      
-                      // Get current itinerary
-                      const currentDay = selectedDays as keyof ReturnType<typeof getItinerary>;
-                      const updatedItinerary = getItinerary(selectedCity);
-                      updatedItinerary[currentDay] = [...updatedItinerary[currentDay], activity];
-                      
-                      // Update itinerary state by re-triggering selection
-                      setSelectedDays(selectedDays);
-                      
-                      setShowAddActivityDialog(false);
-                      setNewActivity({
-                        title: "",
-                        time: "",
-                        duration: "",
-                        location: "",
-                        type: "custom"
-                      });
-                      
-                      toast({
-                        title: "Activity Added",
-                        description: "Your activity has been added to the itinerary.",
-                      });
-                    }}>
-                      Add to Itinerary
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
+              <Button variant="travel" className="w-full" onClick={handleAddActivity}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add Activity
+              </Button>
             </CardContent>
           </Card>
         </div>
