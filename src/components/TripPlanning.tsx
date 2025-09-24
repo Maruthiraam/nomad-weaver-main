@@ -12,7 +12,15 @@ import cityImage from "@/assets/city-destination.jpg";
 import mountainImage from "@/assets/mountain-adventure.jpg";
 import { useBooking } from "@/hooks/useBooking";
 
-// Using existing images as placeholders temporarily
+// Define destination image paths
+const destinationImages = {
+  tajMahal: "/images/destinations/taj-mahal.jpg",
+  varanasi: "/images/destinations/varanasi-ghats.jpg",
+  jaipur: "/images/destinations/jaipur-palace.jpg",
+  kerala: "/images/destinations/kerala-backwaters.jpg",
+  goa: "/images/destinations/goa-beaches.jpg",
+  ladakh: "/images/destinations/ladakh-monastery.jpg"
+};
 
 const TripPlanning = () => {
   const [selectedDays, setSelectedDays] = useState(1);
@@ -547,29 +555,6 @@ const TripPlanning = () => {
                 </div>
               )}
               
-              {/* Featured Destinations */}
-              <div className="space-y-3">
-                <div className="relative overflow-hidden rounded-lg cursor-pointer group">
-                  <img src={cityImage} alt="City destination" className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
-                    <div className="text-white">
-                      <div className="font-semibold">Taj Mahal, Agra</div>
-                      <div className="text-sm">From ₹3,999</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="relative overflow-hidden rounded-lg cursor-pointer group">
-                  <img src={mountainImage} alt="Mountain destination" className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
-                    <div className="text-white">
-                      <div className="font-semibold">Kerala Backwaters</div>
-                      <div className="text-sm">From ₹4,999</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               <Button variant="adventure" className="w-full" onClick={handleExploreMore}>
                 <MapPin className="w-4 h-4 mr-2" />
                 Explore More
@@ -700,42 +685,42 @@ const TripPlanning = () => {
                 id: 1,
                 name: "Taj Mahal, Agra",
                 description: "One of the seven wonders of the world, this ivory-white marble mausoleum is a testament to eternal love",
-                image: cityImage,
+                image: destinationImages.tajMahal,
                 type: "Historical"
               },
               {
                 id: 2,
                 name: "Varanasi Ghats",
                 description: "The spiritual capital of India, known for its ancient temples and cultural heritage along the Ganges",
-                image: cityImage,
+                image: destinationImages.varanasi,
                 type: "Spiritual"
               },
               {
                 id: 3,
                 name: "Jaipur City Palace",
                 description: "The pink city's magnificent palace complex showcasing Rajasthani and Mughal architecture",
-                image: mountainImage,
+                image: destinationImages.jaipur,
                 type: "Heritage"
               },
               {
                 id: 4,
                 name: "Kerala Backwaters",
                 description: "Serene network of lagoons, lakes, and canals parallel to the Arabian Sea coast",
-                image: cityImage,
+                image: destinationImages.kerala,
                 type: "Nature"
               },
               {
                 id: 5,
                 name: "Goa Beaches",
                 description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage",
-                image: mountainImage,
+                image: destinationImages.goa,
                 type: "Beach"
               },
               {
                 id: 6,
                 name: "Ladakh",
                 description: "High-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities",
-                image: mountainImage,
+                image: destinationImages.ladakh,
                 type: "Adventure"
               }
             ].map((destination) => (
