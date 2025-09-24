@@ -42,14 +42,20 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#search" className="text-foreground hover:text-primary transition-colors flex items-center space-x-1">
+            <button 
+              onClick={() => document.getElementById('search')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-foreground hover:text-primary transition-colors flex items-center space-x-1"
+            >
               <MapPin className="w-4 h-4" />
               <span>Destinations</span>
-            </a>
-            <a href="#planning" className="text-foreground hover:text-primary transition-colors flex items-center space-x-1">
+            </button>
+            <button 
+              onClick={() => document.getElementById('planning')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-foreground hover:text-primary transition-colors flex items-center space-x-1"
+            >
               <Calendar className="w-4 h-4" />
               <span>Planning</span>
-            </a>
+            </button>
             <a href="#budget" className="text-foreground hover:text-primary transition-colors flex items-center space-x-1">
               <DollarSign className="w-4 h-4" />
               <span>Budget</span>
