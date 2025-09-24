@@ -11,6 +11,15 @@ import { useToast } from "@/hooks/use-toast";
 import cityImage from "@/assets/city-destination.jpg";
 import mountainImage from "@/assets/mountain-adventure.jpg";
 import { useBooking } from "@/hooks/useBooking";
+
+// Destination images
+import tajMahalImg from "@/assets/destinations/taj-mahal.jpg";
+import varanasiImg from "@/assets/destinations/varanasi.jpg";
+import jaipurImg from "@/assets/destinations/jaipur.jpg";
+import keralaImg from "@/assets/destinations/kerala.jpg";
+import goaImg from "@/assets/destinations/goa.jpg";
+import ladakhImg from "@/assets/destinations/ladakh.jpg";
+
 const TripPlanning = () => {
   const [selectedDays, setSelectedDays] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -697,51 +706,51 @@ const TripPlanning = () => {
                 id: 1,
                 name: "Taj Mahal, Agra",
                 description: "One of the seven wonders of the world, this ivory-white marble mausoleum is a testament to eternal love",
-                imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1000",
+                image: tajMahalImg,
                 type: "Historical"
               },
               {
                 id: 2,
                 name: "Varanasi Ghats",
                 description: "The spiritual capital of India, known for its ancient temples and cultural heritage along the Ganges",
-                imageUrl: "https://images.unsplash.com/photo-1561361058-c12e04d4fcad?q=80&w=1000",
+                image: varanasiImg,
                 type: "Spiritual"
               },
               {
                 id: 3,
                 name: "Jaipur City Palace",
                 description: "The pink city's magnificent palace complex showcasing Rajasthani and Mughal architecture",
-                imageUrl: "https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=1000",
+                image: jaipurImg,
                 type: "Heritage"
               },
               {
                 id: 4,
                 name: "Kerala Backwaters",
                 description: "Serene network of lagoons, lakes, and canals parallel to the Arabian Sea coast",
-                imageUrl: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?q=80&w=1000",
+                image: keralaImg,
                 type: "Nature"
               },
               {
                 id: 5,
                 name: "Goa Beaches",
                 description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage",
-                imageUrl: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=1000",
+                image: goaImg,
                 type: "Beach"
               },
               {
                 id: 6,
                 name: "Ladakh",
                 description: "High-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities",
-                imageUrl: "https://images.unsplash.com/photo-1627896157734-4d7d4137bc36?q=80&w=1000",
+                image: ladakhImg,
                 type: "Adventure"
               }
             ].map((destination) => (
               <Card key={destination.id} className="overflow-hidden">
                 <div className="h-40 overflow-hidden">
                   <img
-                    src={destination.imageUrl}
+                    src={destination.image}
                     alt={`${destination.name}`}
-                    className="w-full h-40 object-cover"
+                    className="w-full h-40 object-cover hover:scale-110 transition-transform duration-300"
                     loading="lazy"
                   />
                 </div>
