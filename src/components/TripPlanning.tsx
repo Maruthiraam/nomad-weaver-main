@@ -331,9 +331,17 @@ const TripPlanning = () => {
     }
     
     toast({
-      title: "Explore Destinations",
-      description: "Showing available destinations...",
+      title: "Discover More Destinations",
+      description: "Scroll down to see our curated list of top destinations in India, including the Taj Mahal, Varanasi Ghats, Kerala Backwaters, and more!",
+      variant: "default",
+      duration: 5000,
     });
+
+    // Smooth scroll to destinations section
+    const destinationsSection = document.getElementById('destinations');
+    if (destinationsSection) {
+      destinationsSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleAddActivity = () => {
