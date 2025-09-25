@@ -694,43 +694,139 @@ const TripPlanning = () => {
                 id: 1,
                 name: "Taj Mahal, Agra",
                 description: "One of the seven wonders of the world, this ivory-white marble mausoleum is a testament to eternal love",
+                detailedDescription: `The Taj Mahal is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, India. Built by Mughal Emperor Shah Jahan in memory of his beloved wife Mumtaz Mahal, this UNESCO World Heritage site attracts millions of visitors yearly.
+
+Key Highlights:
+• Perfect symmetrical architecture
+• 42-acre complex with beautiful gardens
+• Best visited during sunrise or sunset
+• Houses the tombs of Shah Jahan and Mumtaz Mahal
+
+Visitor Information:
+• Open from sunrise to sunset
+• Closed on Fridays
+• Photography allowed (with restrictions)
+• Guides available at entrance`,
                 image: destinationImages.tajMahal,
-                type: "Historical"
+                type: "Historical",
+                bestTimeToVisit: "October to March",
+                nearestAirport: "Agra Airport (AGR)",
+                mustSee: ["Main Mausoleum", "The Gardens", "The Mosque", "Yamuna River View"]
               },
               {
                 id: 2,
                 name: "Varanasi Ghats",
                 description: "The spiritual capital of India, known for its ancient temples and cultural heritage along the Ganges",
+                detailedDescription: `Varanasi, one of the world's oldest continuously inhabited cities, is India's spiritual capital. The ghats along the Ganges River are the heart of the city's religious and cultural life.
+
+Key Highlights:
+• 88 ghats along the river
+• Ancient temples and architecture
+• Famous Ganga Aarti ceremony
+• Rich cultural heritage
+
+Visitor Information:
+• Best experienced during sunrise
+• Evening aarti at Dashashwamedh Ghat
+• Boat rides available
+• Photography allowed with respect`,
                 image: destinationImages.varanasi,
-                type: "Spiritual"
+                type: "Spiritual",
+                bestTimeToVisit: "November to March",
+                nearestAirport: "Lal Bahadur Shastri Airport (VNS)",
+                mustSee: ["Dashashwamedh Ghat", "Morning Boat Ride", "Evening Aarti", "Kashi Vishwanath Temple"]
               },
               {
                 id: 3,
                 name: "Jaipur City Palace",
                 description: "The pink city's magnificent palace complex showcasing Rajasthani and Mughal architecture",
+                detailedDescription: `The City Palace of Jaipur is a stunning blend of Rajasthani and Mughal architecture. The palace complex includes the Chandra Mahal and Mubarak Mahal, and various courtyards and buildings.
+
+Key Highlights:
+• Impressive architectural design
+• Royal family's residence
+• Museum collections
+• Beautiful courtyards
+
+Visitor Information:
+• Open daily 9:30 AM to 5:00 PM
+• Audio guides available
+• Royal family still resides in part of palace
+• Photography allowed`,
                 image: destinationImages.jaipur,
-                type: "Heritage"
+                type: "Heritage",
+                bestTimeToVisit: "October to March",
+                nearestAirport: "Jaipur International Airport (JAI)",
+                mustSee: ["Chandra Mahal", "Diwan-i-Aam", "Royal Museum", "Palace Gardens"]
               },
               {
                 id: 4,
                 name: "Kerala Backwaters",
                 description: "Serene network of lagoons, lakes, and canals parallel to the Arabian Sea coast",
+                detailedDescription: `The Kerala Backwaters are a chain of lagoons, lakes, and canals running parallel to the Arabian Sea coast. This unique ecosystem is best experienced through traditional houseboat cruises.
+
+Key Highlights:
+• Network of 900km of waterways
+• Traditional houseboats
+• Rich biodiversity
+• Local village life
+
+Visitor Information:
+• Houseboats available for day/overnight trips
+• Best experienced on traditional kettuvallam
+• Fresh seafood available
+• Photography paradise`,
                 image: destinationImages.kerala,
-                type: "Nature"
+                type: "Nature",
+                bestTimeToVisit: "September to March",
+                nearestAirport: "Cochin International Airport (COK)",
+                mustSee: ["Alleppey Backwaters", "Houseboat Stay", "Village Tours", "Kumarakom Bird Sanctuary"]
               },
               {
                 id: 5,
                 name: "Goa Beaches",
                 description: "Famous for its pristine beaches, vibrant nightlife, and Portuguese heritage",
+                detailedDescription: `Goa, India's smallest state, is famous for its pristine beaches, vibrant nightlife, and Portuguese heritage. The coastal paradise offers a perfect blend of relaxation and adventure.
+
+Key Highlights:
+• Beautiful beaches
+• Portuguese architecture
+• Water sports
+• Vibrant nightlife
+
+Visitor Information:
+• Best beaches in North and South Goa
+• Water sports available
+• Beach shacks for local cuisine
+• Bike rentals popular`,
                 image: destinationImages.goa,
-                type: "Beach"
+                type: "Beach",
+                bestTimeToVisit: "November to February",
+                nearestAirport: "Goa International Airport (GOI)",
+                mustSee: ["Calangute Beach", "Baga Beach", "Fort Aguada", "Basilica of Bom Jesus"]
               },
               {
                 id: 6,
                 name: "Ladakh",
                 description: "High-altitude desert with stunning landscapes, Buddhist monasteries, and adventure activities",
+                detailedDescription: `Ladakh, known as the 'Land of High Passes', is a region in India's northernmost state. It's famous for its stunning landscapes, Buddhist monasteries, and adventure activities.
+
+Key Highlights:
+• High-altitude desert landscape
+• Ancient Buddhist monasteries
+• Adventure sports
+• Unique culture
+
+Visitor Information:
+• Altitude acclimatization needed
+• Best accessed by air
+• Inner Line Permit required for some areas
+• Warm clothing essential`,
                 image: destinationImages.ladakh,
-                type: "Adventure"
+                type: "Adventure",
+                bestTimeToVisit: "June to September",
+                nearestAirport: "Kushok Bakula Rimpochee Airport (IXL)",
+                mustSee: ["Pangong Lake", "Nubra Valley", "Thiksey Monastery", "Leh Palace"]
               }
             ].map((destination) => (
               <Card key={destination.id} className="overflow-hidden">
@@ -749,10 +845,65 @@ const TripPlanning = () => {
                   </div>
                   <p className="text-sm text-muted-foreground">{destination.description}</p>
                   <div className="flex items-center justify-end pt-2">
-                    <Button size="sm" onClick={() => {
-                      setSearchTerm(destination.name.split(',')[0]);
-                      handleSearch();
-                    }}>Explore</Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button size="sm" variant="secondary">Details</Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl flex items-center gap-2">
+                            {destination.name}
+                            <Badge variant="outline">{destination.type}</Badge>
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="grid gap-4 mt-4">
+                          <div className="aspect-video overflow-hidden rounded-lg">
+                            <img
+                              src={destination.image}
+                              alt={destination.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="space-y-4">
+                            <div>
+                              <h4 className="text-sm font-semibold mb-2">About</h4>
+                              <p className="text-sm text-muted-foreground whitespace-pre-line">
+                                {destination.detailedDescription}
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <h4 className="text-sm font-semibold mb-2">Best Time to Visit</h4>
+                                <p className="text-sm text-muted-foreground">{destination.bestTimeToVisit}</p>
+                              </div>
+                              <div>
+                                <h4 className="text-sm font-semibold mb-2">Nearest Airport</h4>
+                                <p className="text-sm text-muted-foreground">{destination.nearestAirport}</p>
+                              </div>
+                            </div>
+                            <div>
+                              <h4 className="text-sm font-semibold mb-2">Must-See Attractions</h4>
+                              <ul className="grid grid-cols-2 gap-2">
+                                {destination.mustSee.map((attraction, index) => (
+                                  <li key={index} className="text-sm text-muted-foreground flex items-center">
+                                    <span className="mr-2">•</span>
+                                    {attraction}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex justify-end mt-4">
+                          <Button onClick={() => {
+                            setSearchTerm(destination.name.split(',')[0]);
+                            handleSearch();
+                          }}>
+                            Plan Your Visit
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </CardContent>
               </Card>
