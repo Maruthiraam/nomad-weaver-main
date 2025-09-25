@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Search, MapPin, Calendar } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import heroImage from "@/assets/hero-travel.jpg";
+import heroImage from "@/assets/hero-travel2.jpg";
 
 const Hero = () => {
   const { user } = useAuth();

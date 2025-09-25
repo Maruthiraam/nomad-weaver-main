@@ -15,12 +15,12 @@ import { useBooking } from "@/hooks/useBooking";
 
 // Define destination image paths
 const destinationImages = {
-  tajMahal: "/images/destinations/taj-mahal.jpg",
-  varanasi: "/images/destinations/varanasi-ghats.jpg",
-  jaipur: "/images/destinations/jaipur-palace.jpg",
-  kerala: "/images/destinations/kerala-backwaters.jpg",
-  goa: "/images/destinations/goa-beaches.jpg",
-  ladakh: "/images/destinations/ladakh-monastery.jpg"
+  tajMahal: "src/assets/destinations/taj-mahal.jpg",
+  varanasi: "src/assets/destinations/varanasi.jpg",
+  jaipur: "src/assets/destinations/jaipur.jpg",
+  kerala: "src/assets/destinations/kerala.jpg",
+  goa: "src/assets/destinations/goa.jpg",
+  ladakh: "src/assets/destinations/ladakh.jpg"
 };
 
 const TripPlanning = () => {
